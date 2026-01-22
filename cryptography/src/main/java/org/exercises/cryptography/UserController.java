@@ -37,4 +37,5 @@ public class UserController {
     public UserDTO delete(@PathVariable Long id) {
         return userService.deleteUser(id);
     }
+
 }

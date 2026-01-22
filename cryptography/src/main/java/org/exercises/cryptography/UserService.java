@@ -1,7 +1,6 @@
 package org.exercises.cryptography;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class UserService {
 
     public List<UserDTO> findAllUsers() {
         List<UserDTO> users = new ArrayList<>();
-        userRepository.findAll().forEach(user -> users.add(UserDTO.from(user)));
+        userRepository.findAll().forEach(user -> users.add(UserDTO.from(user)) );
 
         return users;
     }
@@ -56,12 +55,11 @@ public class UserService {
         return UserDTO.from(userRepository.save(newUser));
     }
 
-    @Transactional
     public UserDTO deleteUser(Long id) throws NoSuchUserExistsException {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new NoSuchUserExistsException("User not found"));
         userRepository.deleteById(id);
-        userRepository.flush();
 
         return UserDTO.from(user);
     }
+
 }

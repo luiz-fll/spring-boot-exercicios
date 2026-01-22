@@ -8,16 +8,18 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "USER_DOCUMENT")
+    @Column(name = "USER_DOCUMENT", nullable = false)
+    @Convert(converter = SensitiveDataConverter.class)
     private String userDocument;
 
-    @Column(name = "CREDIT_CARD_TOKEN")
+    @Column(name = "CREDIT_CARD_TOKEN", nullable = false)
+    @Convert(converter = SensitiveDataConverter.class)
     private String creditCardToken;
 
-    @Column(name = "AMOUNT")
-    private long value;
+    @Column(name = "AMOUNT", nullable = false)
+    private Long value;
 
     public UserEntity() {}
 
@@ -54,4 +56,5 @@ public class UserEntity {
     public void setValue(long value) {
         this.value = value;
     }
+
 }
