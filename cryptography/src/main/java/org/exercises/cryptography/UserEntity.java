@@ -29,7 +29,7 @@ public class UserEntity {
         this.value = value;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class UserEntity {
         return creditCardToken;
     }
 
-    public long getValue() {
+    public Long getValue() {
         return value;
     }
 
@@ -53,7 +53,7 @@ public class UserEntity {
         this.creditCardToken = creditCardToken;
     }
 
-    public void setValue(long value) {
+    public void setValue(Long value) {
         this.value = value;
     }
 

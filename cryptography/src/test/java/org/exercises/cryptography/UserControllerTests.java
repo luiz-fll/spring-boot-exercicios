@@ -23,7 +23,8 @@ public class UserControllerTests {
     @MockitoBean
     private UserService userService;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void testFindAllEndpoint() throws Exception {

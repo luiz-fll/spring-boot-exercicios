@@ -27,7 +27,7 @@ public class SensitiveDataConverter implements AttributeConverter<String, String
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] encryptedBytes = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(encryptedBytes);
+            return new String(Base64.getEncoder().encode(encryptedBytes), StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

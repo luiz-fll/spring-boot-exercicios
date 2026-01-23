@@ -57,7 +57,7 @@ public class UserService {
 
     public UserDTO deleteUser(Long id) throws NoSuchUserExistsException {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new NoSuchUserExistsException("User not found"));
-        userRepository.deleteById(id);
+        userRepository.delete(user);
 
         return UserDTO.from(user);
     }
