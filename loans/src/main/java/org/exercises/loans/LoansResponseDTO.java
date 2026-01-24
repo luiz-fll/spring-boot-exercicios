@@ -1,4 +1,8 @@
 package org.exercises.loans;
 
-public class LoansResponseDTO {
-}
+import java.util.LinkedHashSet;
+
+public record LoansResponseDTO(
+        String customer,
+        LinkedHashSet<Loan> loans
+) {}

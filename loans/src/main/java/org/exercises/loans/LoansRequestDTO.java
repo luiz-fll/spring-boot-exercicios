@@ -1,4 +1,9 @@
 package org.exercises.loans;
 
-public class LoansRequestDTO {
-}
+public record LoansRequestDTO(
+        Integer age,
+        String cpf,
+        String name,
+        Double income,
+        String location
+) {}
