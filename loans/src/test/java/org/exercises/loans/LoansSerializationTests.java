@@ -1,10 +1,11 @@
 package org.exercises.loans;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -18,7 +19,7 @@ public class LoansSerializationTests {
     ObjectMapper objectMapper;
 
     @Test
-    public void LoansSerializationTest() {
+    public void LoansSerializationTest() throws JsonProcessingException {
         JsonNode provided = objectMapper.readTree(
                 """
                 {
@@ -43,7 +44,7 @@ public class LoansSerializationTests {
     }
 
     @Test
-    public void LoansDeserializationTest() {
+    public void LoansDeserializationTest() throws JsonProcessingException {
         JsonNode provided = objectMapper.valueToTree(new LoansResponseDTO(
                 "Vuxaywua Zukiagou",
                 new LinkedHashSet<>(List.of(Loan.PERSONAL, Loan.GUARANTEED, Loan.CONSIGNMENT))

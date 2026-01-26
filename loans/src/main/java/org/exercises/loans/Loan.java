@@ -2,7 +2,6 @@ package org.exercises.loans;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonFormat(shape=JsonFormat.Shape.OBJECT)
 public enum Loan {

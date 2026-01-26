@@ -66,3 +66,18 @@ HTTP/1.1 200 Ok
 - Conceder o empréstimo com garantia se o salário do cliente for igual ou inferior a R$ 3000.
 - Conceder o empréstimo com garantia se o salário do cliente estiver entre R\$ 3000 e R$ 5000, se o cliente tiver
   menos de 30 anos e residir em São Paulo (SP).
+
+
+## Solução
+
+- Foi criado um backend com apenas um endpoint, `/customer-loans`. Ele responde às requisições informando os tipos
+de empréstimo disponíveis com base nos dados enviados no body da requisição POST. O ponto de entrada da aplicação
+é a classe `LoansApplication`.
+- O endpoint foi implementado em um `@RestController`, o `LoansController`. A lógica de empréstimo foi implementada
+em um `@Service`, a classe `LoansService`. 
+- Foram implementados dois Data Transfer Objects (DTO), um para requisições `LoansRequestDTO` e outro para respostas
+`LoansResponseDTO`. O `LoansRequestDTO` é uma estrutura bem simples que mapeia o JSON da requisição diretamente nos 
+seus campos. O `LoansResponseDTO` possui uma lista de `Loan`, uma enum com os 3 tipos de empréstimos. Foi preciso
+utilizar `@JsonFormat` e `@JsonProperty` para que a serialização ocorresse corretamente como especificado no enunciado.
+- Foram criados testes de endpoint, de serviço e de serialização, são eles: `LoansControllerTests`, 
+`LoansSerializationTests` e `LoansServiceTests`.
