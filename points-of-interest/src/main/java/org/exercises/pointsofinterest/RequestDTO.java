@@ -4,4 +4,4 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record RequestDTO(Integer x,
                          Integer y,
-                         @JsonProperty("max-distance") Double maxDistance) {}
+                         @JsonProperty("max-distance") Integer maxDistance) {}

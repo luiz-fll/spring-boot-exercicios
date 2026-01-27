@@ -19,6 +19,6 @@ public interface POIRepository extends JpaRepository<POIEntity, Integer> {
     )
     List<POIEntity> findByDistance(@Param("x") int x,
                                    @Param("y") int y,
-                                   @Param("d") double d);
+                                   @Param("d") int d);
 
 }

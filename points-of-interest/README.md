@@ -37,4 +37,10 @@ retornar os seguintes POIs:
   referência, bem como uma distância máxima (d-max) em metros. O serviço deverá retornar todos os POIs da base de dados
   que estejam a uma distância menor ou igual a d-max a partir do ponto de referência.
 
+## Solução
 
+- Foi criado um endpoint POST em `/`. `RequestDTO` e `ResponseDTO` são Data Transfer Objects para lidar com requisições
+e respostas. `POIService` basicamente só chama o `POIRepository` para realizar a query SQL que filtra e ordena os
+pontos recebidos do banco de dados. O banco de dados escolhido foi o HSQL. `POIEntity` modela as entradas do banco
+de dados. A query SQL utiliza distância euclidiana para o cálculo. Os dados iniciais e as tabelas são geradas pelos
+scripts `data.sql` e `schema.sql`. `application.properties` contém as propriedades para conexão com o banco.

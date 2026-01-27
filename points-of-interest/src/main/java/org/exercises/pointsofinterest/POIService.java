@@ -13,7 +13,7 @@ public class POIService {
         this.repository = repository;
     }
 
-    public List<POIEntity> findPointsOfInterest(Integer x, Integer y, Double maxDistance) {
+    public List<POIEntity> findPointsOfInterest(Integer x, Integer y, Integer maxDistance) {
         return repository.findByDistance(x, y, maxDistance);
     }
 
