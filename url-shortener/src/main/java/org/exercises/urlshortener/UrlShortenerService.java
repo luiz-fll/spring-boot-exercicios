@@ -1,9 +1,9 @@
 package org.exercises.urlshortener;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 
 @Service
 public class UrlShortenerService {
@@ -17,8 +17,14 @@ public class UrlShortenerService {
         this.alphabet = properties.getAlphabet();
     }
 
-    public UrlEntity findByUrlCode(String urlCode) throws UnknownURLCodeException {
-        return repository.findById(urlCode).orElseThrow(UnknownURLCodeException::new);
+    public UrlEntity findByUrlCode(String urlCode) throws UnknownURLCodeException, ExpiredURLException {
+        UrlEntity entity = repository.findById(urlCode).orElseThrow(UnknownURLCodeException::new);
+
+        if (entity.isExpired()) {
+            throw new ExpiredURLException();
+        }
+
+        return entity;
     }
 
     public UrlEntity saveUrl(String url) {
@@ -28,7 +34,7 @@ public class UrlShortenerService {
             code = generateCode();
         }
 
-        return repository.save(new UrlEntity(code, url));
+        return repository.save(new UrlEntity(code, url, LocalDateTime.now().plusSeconds(30)));
     }
 
     private String generateCode() {

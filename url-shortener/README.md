@@ -37,6 +37,17 @@ HTTP/1.1 200 OK
   URL original salva no banco de dados. Caso a URL não seja encontrada no banco, retorne o código de
   status `HTTP 404 (Not Found)`.
 
-## Soluções
+## Solução
 
-Neste [tópico](SOLUTIONS.md), você encontrará soluções para esse desafio, feitas por outros membros da comunidade.
+- Foi criado um sistema que possui dois endpoints: um que recebe requisições GET em `/{codigo_encurtado}` e outro
+para requisições POST para gerar encurtamentos (`/shorten-url`), definidos em `UrlShortenerController`.
+- `UrlEntity` modela as entradas no banco de dados, `UrlShortenerRepository` é a interface de acesso. Cada entrada
+possui o código encurtado `code`, a URL original `url` e a data de expiração `expired_at`. `code` é chave primária.
+O banco escolhido foi o HyperSQL, e a geração da tabela foi feita com o script `main/java/resources/schema.sql`.
+- `UrlShortenerService` cuida da geração de códigos e realiza acessos no banco de dados. 
+- `UrlShortenerProperties` extrai propriedades dentro do `application.properties`. São elas
+`shortener.service.baseurl` para obter a URL base e `shortener.service.alphabet` para obter os caracteres a serem
+utilizados na geração do código encurtado (letras maiúsculas, minúsculas e digitos).
+- `UrlDTO` é um Data Transfer Object para modelar o body de requisições e respostas HTTP.
+- Ao acessar uma URL, pode ocorrer de ela estar expirada ou não existir. As exceções `ExpiredURLException` e
+`UnknownURLCodeException` são lançadas nestes casos, com HTTP status codes definidos pela anotação `@ResponseStatus`.
