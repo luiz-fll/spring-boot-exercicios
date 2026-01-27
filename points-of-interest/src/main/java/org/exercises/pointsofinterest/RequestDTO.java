@@ -1,3 +1,7 @@
 package org.exercises.pointsofinterest;
 
-public record RequestDTO(Integer x, Integer y, Double maxDistance) {}
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record RequestDTO(Integer x,
+                         Integer y,
+                         @JsonProperty("max-distance") Double maxDistance) {}
