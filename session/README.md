@@ -57,3 +57,26 @@ HTTP/1.1 200 OK
 - A senha não pode ser armazenada em plain text. Utilize um algoritmo de hashing.
 - O Controller não deve ter acesso à senha enviada pelo usuário.
 - Utilizar Spring Security com sessão.
+
+## Solução
+
+- Foi criado um sistema que utiliza um banco de dados HSQL para armazenar usuários. Ele possui os endpoints
+`/login`, `/me`, `/public` e `/logout`. O acesso ao banco foi implementado com Spring Data JPA através de
+`UserRepository` e `UserEntity`. `DataInitializer` insere um usuário de teste no banco de dados.
+- O `UserController` contém os endpoints `/me` e `/public`, enquanto que `/login` e `/logout` são definidos
+pelo Spring Security e não alcançam o controller. O `UserController` conta com `UserService` para a lógica
+de negócio, `UserDTO` e `MessageDTO` para lidar com as respostas HTTP.
+- `SecurityConfig` e `CustomUserDetailsService` cuidam da lógica de autenticação e autorização do Spring Security.
+Em `SecurityConfig`, é definido um bean para o `PasswordEncoder` e outro para a `SecurityFilterChain`.
+- Em `/login` não foi utilizado um body com JSON, mas sim com um form HTML. O Spring Security não possui um
+filtro padrão para JSON, mas possui `formLogin` para realizar login com `HttpSession`. O `formLogin` trata
+o campo `email` como `username` internamente, mas é apenas uma questão de nomenclatura.
+- O Spring Security requer a criação de um `userDetails` para realizar o processo de autenticação. Para isso, 
+foi necessário implementar `CustomUserDetailsService` para realizar o acesso no banco de dados e efetuar o 
+mapeamento. A classe `User` é um builder de `UserDetais` pertencente ao Spring Security, não confundir com 
+`UserEntity`.
+- Na criação de `SecurityFilterChain`, foi utilizado requestMatchers para permitir o acesso ao endpoint `/public` 
+sem necessidade de login. `/login` já é configurado pelo próprio Spring para ter acesso liberado. Por padrão,
+`formLogin` trabalha com redirects pensados para uso em um browser, o que não é ideal para APIs. Com `exceptionHandling`
+é possível alterar esse comportamento para utilizar respostas HTTP ao invés de redirects. `/logout` invalida a sessão 
+HTTP.
