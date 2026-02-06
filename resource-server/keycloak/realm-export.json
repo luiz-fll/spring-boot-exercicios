@@ -1,0 +1,61 @@
+{
+  "realm": "exercise",
+  "enabled": true,
+
+  "requiredActions": [],
+
+  "clients": [
+    {
+      "clientId": "resource-server",
+      "enabled": true,
+      "protocol": "openid-connect",
+
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+
+      "redirectUris": [
+        "https://oauth.pstmn.io/v1/callback"
+      ],
+
+      "protocolMappers": [
+        {
+          "name": "email",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "email",
+            "claim.name": "email",
+            "jsonType.label": "String",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+
+  "users": [
+    {
+      "username": "test-user",
+      "enabled": true,
+
+      "email": "user@test.com",
+      "emailVerified": true,
+
+      "firstName": "Test",
+      "lastName": "User",
+
+      "requiredActions": [],
+
+      "credentials": [
+        {
+          "type": "password",
+          "value": "123",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}
+
